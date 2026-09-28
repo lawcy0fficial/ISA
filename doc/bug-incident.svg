@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs><filter id="bg2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <circle cx="60" cy="60" r="56" fill="#0b1220" stroke="#ff3860" stroke-width="2" stroke-dasharray="5 4">
+    <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="360 60 60" dur="14s" repeatCount="indefinite"/>
+  </circle>
+  <g transform="translate(60,64)" filter="url(#bg2)" stroke="#ff3860" stroke-width="3" fill="none" stroke-linecap="round">
+    <ellipse cx="0" cy="4" rx="16" ry="21"/>
+    <line x1="0" y1="-17" x2="0" y2="25"/>
+    <line x1="-25" y1="-10" x2="-13" y2="-3"/>
+    <line x1="25" y1="-10" x2="13" y2="-3"/>
+    <line x1="-25" y1="4" x2="-16" y2="4"/>
+    <line x1="25" y1="4" x2="16" y2="4"/>
+    <line x1="-22" y1="19" x2="-11" y2="14"/>
+    <line x1="22" y1="19" x2="11" y2="14"/>
+    <circle cy="-17" r="7"/>
+  </g>
+  <text x="60" y="108" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="11" fill="#ff3860">SyntaxError</text>
+</svg>

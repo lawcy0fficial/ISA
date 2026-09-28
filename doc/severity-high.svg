@@ -1,0 +1,7 @@
+<svg width="174" height="28" viewBox="0 0 174 28" xmlns="http://www.w3.org/2000/svg">
+  <rect width="108" height="28" rx="6" fill="#0b1220"/>
+  <rect x="108" width="66" height="28" rx="6" fill="#ff6a3d"><animate attributeName="opacity" values="0.75;1;0.75" dur="2.2s" repeatCount="indefinite"/></rect>
+  <rect x="102" width="6" height="28" fill="#ff6a3d"/>
+  <text x="54.0" y="18.5" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#c9f7e2">SEVERITY</text>
+  <text x="141.0" y="18.5" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="12.5" fill="#060a10">HIGH</text>
+</svg>

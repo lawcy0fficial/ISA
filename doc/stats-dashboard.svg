@@ -1,0 +1,42 @@
+<svg width="900" height="130" viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="130" rx="12" fill="#060a10"/>
+  
+  <g transform="translate(140,70)">
+    <text x="0" y="0" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="40" fill="#39ff8f">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/>
+      12
+    </text>
+    <text x="0" y="26" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#c9f7e2" opacity="0.8">tech detected</text>
+  </g>
+
+  
+  <g transform="translate(340,70)">
+    <text x="0" y="0" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="40" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.9s" repeatCount="indefinite"/>
+      12
+    </text>
+    <text x="0" y="26" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#c9f7e2" opacity="0.8">versions enumerated</text>
+  </g>
+
+  
+  <g transform="translate(560,70)">
+    <text x="0" y="0" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="40" fill="#ff2fb0">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.3s" repeatCount="indefinite"/>
+      7
+    </text>
+    <text x="0" y="26" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#c9f7e2" opacity="0.8">cves correlated</text>
+  </g>
+
+  
+  <g transform="translate(770,70)">
+    <text x="0" y="0" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="40" fill="#ffb300">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.1s" repeatCount="indefinite"/>
+      100%
+    </text>
+    <text x="0" y="26" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#c9f7e2" opacity="0.8">evidence verified</text>
+  </g>
+
+  <line x1="240" y1="30" x2="240" y2="100" stroke="#c9f7e2" opacity="0.15"/>
+  <line x1="450" y1="30" x2="450" y2="100" stroke="#c9f7e2" opacity="0.15"/>
+  <line x1="670" y1="30" x2="670" y2="100" stroke="#c9f7e2" opacity="0.15"/>
+</svg>

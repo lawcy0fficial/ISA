@@ -1,0 +1,10 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="31" fill="#060a10" stroke="#39ff8f" stroke-width="1.5"/>
+  <g transform="translate(32,30)" stroke-linecap="round" fill="none">
+    <path d="M0,-14 a14,14 0 1 1 -0.1,0" stroke="#39ff8f" stroke-width="2"/>
+    <path d="M0,-9 a9,9 0 1 1 -0.1,0" stroke="#00e5ff" stroke-width="2"/>
+    <path d="M0,-4.5 a4.5,4.5 0 1 1 -0.1,0" stroke="#ff2fb0" stroke-width="2"/>
+    <circle r="1.6" fill="#c9f7e2"/>
+  </g>
+  <text x="32" y="54" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="10" fill="#39ff8f" letter-spacing="1.5">ISA</text>
+</svg>

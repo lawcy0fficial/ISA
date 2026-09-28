@@ -1,0 +1,77 @@
+<svg width="900" height="360" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00e5ff"/>
+    </marker>
+  </defs>
+  <rect width="900" height="360" rx="14" fill="#060a10"/>
+  <text x="450" y="24" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="15" fill="#39ff8f" letter-spacing="2">ISA DATA-COLLECTION ARCHITECTURE</text>
+
+  <!-- page / target -->
+  <g transform="translate(40,90)">
+    <rect width="150" height="70" rx="10" fill="#0b1220" stroke="#ffb300"/>
+    <text x="75" y="30" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#c9f7e2">Target page</text>
+    <text x="75" y="50" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="11" fill="#ffb300">(authorized)</text>
+  </g>
+
+  <!-- content script -->
+  <g transform="translate(280,40)">
+    <rect width="190" height="70" rx="10" fill="#0b1220" stroke="#39ff8f"/>
+    <text x="95" y="28" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#c9f7e2">content-script.js</text>
+    <text x="95" y="47" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10.5" fill="#39ff8f">DOM · meta · CSS vars</text>
+    <text x="95" y="61" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10.5" fill="#39ff8f">isolated world</text>
+  </g>
+
+  <!-- background.js -->
+  <g transform="translate(280,140)">
+    <rect width="190" height="95" rx="10" fill="#0b1220" stroke="#00e5ff"/>
+    <text x="95" y="24" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#c9f7e2">background.js</text>
+    <text x="95" y="43" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e5ff">webRequest · cookies</text>
+    <text x="95" y="58" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e5ff">scripting.executeScript</text>
+    <text x="95" y="73" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e5ff">MAIN world globals</text>
+    <text x="95" y="88" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e5ff">favicon hash · SPA nav</text>
+  </g>
+
+  <!-- matcher -->
+  <g transform="translate(560,90)">
+    <rect width="180" height="80" rx="10" fill="#0b1220" stroke="#ff2fb0"/>
+    <text x="90" y="30" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#c9f7e2">lib/matcher.js</text>
+    <text x="90" y="50" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10.5" fill="#ff2fb0">signal &#8594; confidence</text>
+    <text x="90" y="65" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10.5" fill="#ff2fb0">version extraction</text>
+  </g>
+
+  <!-- vuln correlation -->
+  <g transform="translate(560,220)">
+    <rect width="180" height="80" rx="10" fill="#0b1220" stroke="#ff3860"/>
+    <text x="90" y="26" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5" fill="#c9f7e2">vuln-db / OSV / GHSA</text>
+    <text x="90" y="45" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#ff3860">CVE range match</text>
+    <text x="90" y="60" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#ff3860">KEV + EPSS (opt-in)</text>
+  </g>
+
+  <!-- popup report -->
+  <g transform="translate(800,155)">
+    <rect width="0" height="0"/>
+  </g>
+  <g transform="translate(770,140)">
+    <rect width="100" height="95" rx="10" fill="#0b1220" stroke="#00e676"/>
+    <text x="50" y="30" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#c9f7e2">Popup</text>
+    <text x="50" y="50" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e676">report</text>
+    <text x="50" y="68" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="10" fill="#00e676">+ SARIF</text>
+  </g>
+
+  <g stroke="#00e5ff" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.85">
+    <path d="M190,110 H270"/>
+    <path d="M190,140 Q230,140 280,175"/>
+    <path d="M470,75 H540 Q555,75 555,95 Q555,110 545,120"/>
+    <path d="M470,185 H540"/>
+    <path d="M650,170 V210"/>
+    <path d="M740,130 Q755,130 755,150 Q755,170 765,178"/>
+    <path d="M740,260 Q790,260 790,235"/>
+  </g>
+  <g fill="#00e5ff">
+    <circle cx="230" cy="110" r="3"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.6s" repeatCount="indefinite"/></circle>
+    <circle cx="510" cy="80" r="3"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="650" cy="190" r="3"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.4s" repeatCount="indefinite"/></circle>
+  </g>
+</svg>

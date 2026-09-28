@@ -1,0 +1,33 @@
+<svg width="900" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="220" rx="12" fill="#060a10"/>
+  <text x="450" y="28" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="14" fill="#c9f7e2" opacity="0.85">technology-coverage scale (log), for honest context</text>
+  
+  <text x="150" y="65" text-anchor="end" font-family="'Courier New', ui-monospace, monospace" font-size="13" fill="#c9f7e2">ISA (MIT core)</text>
+  <rect x="160" y="50" width="50" height="24" rx="5" fill="#39ff8f" opacity="0.92">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <text x="220" y="67" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#39ff8f">188</text>
+
+  
+  <text x="150" y="105" text-anchor="end" font-family="'Courier New', ui-monospace, monospace" font-size="13" fill="#c9f7e2">ISA (+ GPL pack)</text>
+  <rect x="160" y="90" width="56" height="24" rx="5" fill="#00e676" opacity="0.92">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.3s" repeatCount="indefinite"/>
+  </rect>
+  <text x="226" y="107" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#00e676">217</text>
+
+  
+  <text x="150" y="145" text-anchor="end" font-family="'Courier New', ui-monospace, monospace" font-size="13" fill="#c9f7e2">Wappalyzer</text>
+  <rect x="160" y="130" width="280" height="24" rx="5" fill="#00e5ff" opacity="0.92">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="450" y="147" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#00e5ff">~3,000–8,000</text>
+
+  
+  <text x="150" y="185" text-anchor="end" font-family="'Courier New', ui-monospace, monospace" font-size="13" fill="#c9f7e2">BuiltWith</text>
+  <rect x="160" y="170" width="480" height="24" rx="5" fill="#ff2fb0" opacity="0.92">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+  <text x="650" y="187" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#ff2fb0">~100,000–125,000</text>
+
+  <text x="450" y="205" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="11" fill="#c9f7e2" opacity="0.6">bar length is illustrative (log-scaled), not linear — see "Roadmap" for what this means honestly</text>
+</svg>
