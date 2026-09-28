@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "ISA — Integrated Stack Analyzer",
+  "short_name": "ISA",
+  "version": "0.2.0",
+  "description": "Evidence-based technology fingerprinting for security research — every finding backed by raw evidence, not a guess.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs",
+    "cookies",
+    "webRequest",
+    "webNavigation",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "ISA — Integrated Stack Analyzer",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "minimum_chrome_version": "116"
+}

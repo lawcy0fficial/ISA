@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ISA — Custom Rules</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <header class="head">
+    <h1>ISA — Custom Fingerprint Rules</h1>
+    <p class="sub">
+      Rules you add here are merged into the built-in ruleset at scan time and marked
+      <code>custom</code> in the popup. Use the same signal model as <code>lib/technologies.json</code>:
+      a technology is only reported when at least one signal actually matches — leave a field blank to skip that signal type.
+    </p>
+  </header>
+
+  <section class="gpl-pack">
+    <div class="gpl-pack-head">
+      <h2>Extended technology pack (GPL-3.0, optional)</h2>
+      <label class="checkbox inline">
+        <input type="checkbox" id="fGplPack" />
+        Enable it
+      </label>
+    </div>
+    <p class="gpl-pack-body">
+      Adds ~29 additional technology fingerprints (PayPal, Paddle, PIXI.js,
+      Pantheon, and others) converted from
+      <a href="https://github.com/enthec/webappanalyzer" target="_blank" rel="noopener">webappanalyzer</a>,
+      a community-maintained continuation of Wappalyzer's original
+      fingerprint dataset. <strong>That dataset is licensed GPL-3.0</strong> —
+      copyleft. ISA's own code stays MIT either way, but if you enable this
+      and then redistribute your copy of ISA with it turned on, GPL-3.0's
+      terms (source availability, same license) apply to at least this data
+      file. Off by default for exactly that reason — read
+      <code>GPL-PACK-NOTICE.md</code> in the project root before enabling
+      this on anything you plan to redistribute or ship.
+    </p>
+  </section>
+
+  <main class="layout">
+    <section class="editor">
+      <h2 id="formTitle">New rule</h2>
+      <form id="ruleForm">
+        <input type="hidden" id="editId" />
+
+        <label>Technology name<input type="text" id="fName" required placeholder="e.g. Acme CMS" /></label>
+        <label>Categories (comma separated)<input type="text" id="fCategories" placeholder="CMS, E-commerce" /></label>
+        <label>Website (optional)<input type="text" id="fWebsite" placeholder="https://example.com" /></label>
+        <label>Implies (comma separated tech names, optional)<input type="text" id="fImplies" placeholder="PHP" /></label>
+        <label class="checkbox"><input type="checkbox" id="fVerified" /> I've manually confirmed this signature against a live target</label>
+
+        <fieldset>
+          <legend>HTTP header signal</legend>
+          <div class="row">
+            <input type="text" id="hKey" placeholder="header name, e.g. server" />
+            <input type="text" id="hRegex" placeholder="regex, e.g. Acme/([0-9.]+)" />
+            <input type="number" id="hVersionGroup" placeholder="version group #" min="0" max="9" />
+            <input type="number" id="hConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Cookie name signal</legend>
+          <div class="row">
+            <input type="text" id="cRegex" placeholder="regex, e.g. ^acme_session" />
+            <input type="number" id="cConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Meta tag signal (name=generator etc.)</legend>
+          <div class="row">
+            <input type="text" id="mName" placeholder="meta name, e.g. generator" />
+            <input type="text" id="mRegex" placeholder="regex, e.g. Acme CMS ([0-9.]+)" />
+            <input type="number" id="mVersionGroup" placeholder="version group #" min="0" max="9" />
+            <input type="number" id="mConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Script src signal</legend>
+          <div class="row">
+            <input type="text" id="sRegex" placeholder="regex, e.g. /acme-assets/" />
+            <input type="number" id="sVersionGroup" placeholder="version group #" min="0" max="9" />
+            <input type="number" id="sConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Request URL signal (XHR / fetch / WebSocket)</legend>
+          <div class="row">
+            <input type="text" id="ruRegex" placeholder="regex, e.g. /acme-api/v1/" />
+            <input type="number" id="ruVersionGroup" placeholder="version group #" min="0" max="9" />
+            <input type="number" id="ruConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+          <p class="hint">Matches against real observed XHR/fetch/WebSocket endpoint URLs — catches API-only or real-time-only integrations that never appear in page markup.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>HTML / inline-script text signal</legend>
+          <div class="row">
+            <input type="text" id="tRegex" placeholder="regex, e.g. Powered by Acme" />
+            <input type="number" id="tConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Live JS global signal</legend>
+          <div class="row">
+            <input type="text" id="gPath" placeholder="e.g. AcmeWidget.version" />
+            <label class="checkbox inline"><input type="checkbox" id="gVersionLike" /> value is the version</label>
+            <input type="number" id="gConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+          <p class="hint">Note: only globals already probed in <code>background.js</code>'s <code>probeGlobals()</code> can be read — add a new probe line there first if this global isn't covered yet.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>DOM selector signal</legend>
+          <div class="row">
+            <input type="text" id="dSelector" placeholder="e.g. [data-acme-widget]" />
+            <input type="number" id="dConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>CSS custom property signal</legend>
+          <div class="row">
+            <input type="text" id="cvRegex" placeholder="regex, e.g. ^--acme-" />
+            <input type="number" id="cvConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+          <p class="hint">Namespaced CSS custom properties (like <code>--acme-primary-color</code>) are unusually reliable — a framework author deliberately picks a prefix to avoid collisions, so a match rarely happens by accident.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>CSP-allowlisted domain signal</legend>
+          <div class="row">
+            <input type="text" id="cdRegex" placeholder="regex, e.g. cdn\\.acme\\.com" />
+            <input type="number" id="cdConfidence" placeholder="confidence 1-100" min="1" max="100" />
+          </div>
+          <p class="hint">Matches a domain listed in the page's Content-Security-Policy header. Weaker evidence than an actually-observed request — a site can allowlist a domain it doesn't currently use — so keep confidence modest here relative to your other signals.</p>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" id="btnSave">Save rule</button>
+          <button type="button" id="btnCancel" class="secondary hidden">Cancel edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="list">
+      <h2>Custom rules (<span id="ruleCount">0</span>)</h2>
+      <div id="ruleList" class="rule-list"></div>
+    </section>
+  </main>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "note": "Maps a SHA-256 hash of a favicon's raw bytes to a technology. Favicon hashing is a classic recon technique for identifying default installs of admin panels and self-hosted tools (Jenkins, Grafana, Kibana, phpMyAdmin, GitLab, etc.) that often don't otherwise expose a version string. This table ships EMPTY — populate it yourself with `tools/hash-favicon.mjs` against favicons you can legitimately source (your own lab installs, official vendor Docker images, documentation screenshots you control), never by guessing or copying hash values you haven't independently verified. A wrong hash entry is worse than no entry: it produces a confident false positive with no evidence trail to catch it.",
+    "howToPopulate": "node tools/hash-favicon.mjs <url-or-path> — prints a ready-to-paste entry. See tools/README.md.",
+    "tech": "Must match an existing 'name' in lib/technologies.json exactly, so the match can merge into that technology's evidence — or matcher.js will create a minimal standalone finding if it doesn't match any existing entry."
+  },
+  "hashes": {}
+}

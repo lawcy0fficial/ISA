@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "note": "Informational only. Maps a detected library + exact version against publicly disclosed CVEs so a researcher can prioritize manual verification. This file contains no exploit code or PoCs, only public advisory references.",
+    "rangeSyntax": "Ranges use simple comparators: '<x.y.z', '<=x.y.z', '>=x.y.z <a.b.c'. Comparison is numeric, dot-separated."
+  },
+  "entries": [
+    {
+      "tech": "jQuery",
+      "range": "<3.5.0",
+      "cve": "CVE-2020-11022",
+      "severity": "medium",
+      "summary": "Untrusted HTML passed to jQuery's DOM manipulation methods (e.g. .html()) can execute injected <script> elements \u2014 XSS."
+    },
+    {
+      "tech": "jQuery",
+      "range": "<3.5.0",
+      "cve": "CVE-2020-11023",
+      "severity": "medium",
+      "summary": "Similar untrusted-HTML XSS vector affecting jQuery(<>) and related methods prior to the 3.5.0 sanitization fix."
+    },
+    {
+      "tech": "jQuery",
+      "range": "<3.4.0",
+      "cve": "CVE-2019-11358",
+      "severity": "medium",
+      "summary": "jQuery.extend(true, ...) prototype pollution allowing property injection into Object.prototype."
+    },
+    {
+      "tech": "Lodash",
+      "range": "<4.17.21",
+      "cve": "CVE-2021-23337",
+      "severity": "high",
+      "summary": "Command injection via the template function when a malicious template string reaches it (also related prototype pollution history in earlier 4.x versions)."
+    },
+    {
+      "tech": "Lodash",
+      "range": "<4.17.12",
+      "cve": "CVE-2019-10744",
+      "severity": "critical",
+      "summary": "Prototype pollution in defaultsDeep() allowing an attacker to modify Object.prototype."
+    },
+    {
+      "tech": "Lodash",
+      "range": "<4.17.19",
+      "cve": "CVE-2020-8203",
+      "severity": "high",
+      "summary": "Prototype pollution via zipObjectDeep() (and related pick/set/update family) when property paths are attacker-controlled, letting an attacker inject properties onto Object.prototype."
+    },
+    {
+      "tech": "jQuery UI",
+      "range": "<1.13.0",
+      "cve": "CVE-2021-41182",
+      "severity": "medium",
+      "summary": "XSS via the Datepicker widget's altField option when populated with untrusted input."
+    },
+    {
+      "tech": "jQuery UI",
+      "range": "<1.13.0",
+      "cve": "CVE-2021-41183",
+      "severity": "medium",
+      "summary": "XSS via other Datepicker widget text options (e.g. button/display strings) when populated with untrusted input."
+    },
+    {
+      "tech": "jQuery UI",
+      "range": "<1.13.0",
+      "cve": "CVE-2021-41184",
+      "severity": "medium",
+      "summary": "XSS via the of option of the .position() utility when given an attacker-influenced selector string."
+    },
+    {
+      "tech": "Moment.js",
+      "range": "<2.29.4",
+      "cve": "CVE-2022-31129",
+      "severity": "high",
+      "summary": "ReDoS (catastrophic backtracking) in moment's string-to-date parsing when given crafted input."
+    },
+    {
+      "tech": "Bootstrap",
+      "range": ">=3.0.0 <=3.4.1",
+      "cve": "CVE-2019-8331",
+      "severity": "medium",
+      "summary": "XSS in the tooltip/popover data-template attribute due to insufficient sanitization."
+    },
+    {
+      "tech": "Bootstrap",
+      "range": "<4.3.1",
+      "cve": "CVE-2019-8331",
+      "severity": "medium",
+      "summary": "Same tooltip/popover XSS vector, patched across the 3.x and 4.x lines at these versions."
+    },
+    {
+      "tech": "Axios",
+      "range": ">=1.0.0 <1.6.0",
+      "cve": "CVE-2023-45857",
+      "severity": "medium",
+      "summary": "Leaks the XSRF-TOKEN cookie value in the X-XSRF-TOKEN header on every request when withCredentials is enabled, including to unrelated cross-origin hosts."
+    }
+  ]
+}

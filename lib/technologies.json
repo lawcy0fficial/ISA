@@ -1,0 +1,3990 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "note": "Each entry's 'verified' flag marks whether ISA's maintainer has manually confirmed the signal against a live target. Unverified entries were imported from open fingerprint datasets and should be treated as lower-trust until confirmed.",
+    "confidenceModel": "Per-signal weights sum per technology, capped at 100. A single weak signal (e.g. a generic script path) should never alone push confidence above ~50."
+  },
+  "technologies": [
+    {
+      "name": "WordPress",
+      "categories": [
+        "CMS"
+      ],
+      "verified": true,
+      "implies": [
+        "PHP"
+      ],
+      "website": "https://wordpress.org",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "WordPress\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 60
+          }
+        ],
+        "headers": [
+          {
+            "key": "link",
+            "regex": "wp-json",
+            "confidence": 35
+          }
+        ],
+        "requestUrl": [
+          {
+            "regex": "/wp-json/",
+            "confidence": 45
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "wp-content|wp-includes",
+            "confidence": 40
+          },
+          {
+            "regex": "wp-emoji-release\\.min\\.js\\?ver=([0-9.]+)",
+            "version": 1,
+            "confidence": 70
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^wordpress_logged_in_|^wp-settings-",
+            "confidence": 40
+          }
+        ],
+        "html": [
+          {
+            "regex": "<!--\\s*This site is optimized with the Yoast",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Drupal",
+      "categories": [
+        "CMS"
+      ],
+      "verified": true,
+      "website": "https://www.drupal.org",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Drupal\\s*([0-9]+)?",
+            "version": 1,
+            "confidence": 60
+          }
+        ],
+        "headers": [
+          {
+            "key": "x-generator",
+            "regex": "Drupal\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 65
+          },
+          {
+            "key": "x-drupal-cache",
+            "regex": ".+",
+            "confidence": 40
+          },
+          {
+            "key": "x-drupal-dynamic-cache",
+            "regex": ".+",
+            "confidence": 40
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/sites/(all|default)/",
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "Drupal\\.settings",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Joomla",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "website": "https://www.joomla.org",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Joomla!?\\s*-?\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/media/jui/|/media/system/js/",
+            "confidence": 40
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^joomla_user_state",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shopify",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": true,
+      "website": "https://www.shopify.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-shopid",
+            "regex": ".+",
+            "confidence": 60
+          },
+          {
+            "key": "x-shardid",
+            "regex": ".+",
+            "confidence": 40
+          }
+        ],
+        "html": [
+          {
+            "regex": "cdn\\.shopify\\.com",
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "Shopify.shop",
+            "confidence": 70
+          },
+          {
+            "path": "Shopify.theme.name",
+            "confidence": 30,
+            "isVersionLike": false
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^_shopify_",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Magento",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "website": "https://magento.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-magento-tags",
+            "regex": ".+",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^mage-cache-|^PHPSESSID.*mage",
+            "confidence": 30
+          }
+        ],
+        "html": [
+          {
+            "regex": "Mage\\.Cookies|/static/version(\\d+)/",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/skin/frontend/|/static/frontend/",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "jQuery",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": true,
+      "website": "https://jquery.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "jquery[.-]?([0-9.]+)?(?:\\.min)?\\.js",
+            "version": 1,
+            "confidence": 55
+          }
+        ],
+        "globals": [
+          {
+            "path": "jQuery.fn.jquery",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "React",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": true,
+      "website": "https://react.dev",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "react(?:-dom)?[@/]([0-9.]+)?",
+            "version": 1,
+            "confidence": 40
+          }
+        ],
+        "globals": [
+          {
+            "path": "React.version",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[data-reactroot], #__next",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vue.js",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": true,
+      "website": "https://vuejs.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "vue(?:\\.runtime)?[@/-]([0-9.]+)?(?:\\.min)?\\.js",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "Vue.version",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[data-v-app], #app[data-v-]",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "Angular",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": true,
+      "website": "https://angular.io",
+      "signals": {
+        "globals": [
+          {
+            "path": "getAllAngularRootElements",
+            "confidence": 40
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[ng-version]",
+            "attrRegex": {
+              "attr": "ng-version",
+              "regex": "([0-9.]+)"
+            },
+            "version": 1,
+            "confidence": 85
+          }
+        ]
+      }
+    },
+    {
+      "name": "Next.js",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": true,
+      "website": "https://nextjs.org",
+      "signals": {
+        "html": [
+          {
+            "regex": "__NEXT_DATA__",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/_next/static/",
+            "confidence": 45
+          }
+        ],
+        "headers": [
+          {
+            "key": "x-powered-by",
+            "regex": "Next\\.js\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 70
+          }
+        ]
+      }
+    },
+    {
+      "name": "Nuxt.js",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": false,
+      "website": "https://nuxt.com",
+      "signals": {
+        "html": [
+          {
+            "regex": "__NUXT__",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/_nuxt/",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Laravel",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": true,
+      "implies": [
+        "PHP"
+      ],
+      "website": "https://laravel.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^laravel_session|XSRF-TOKEN",
+            "confidence": 55
+          }
+        ],
+        "headers": [
+          {
+            "key": "set-cookie",
+            "regex": "laravel_session",
+            "confidence": 40
+          }
+        ],
+        "html": [
+          {
+            "regex": "csrf-token",
+            "confidence": 15
+          }
+        ]
+      }
+    },
+    {
+      "name": "Django",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": true,
+      "implies": [
+        "Python"
+      ],
+      "website": "https://www.djangoproject.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^csrftoken|^sessionid",
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "csrfmiddlewaretoken",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ruby on Rails",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": false,
+      "implies": [
+        "Ruby"
+      ],
+      "website": "https://rubyonrails.org",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "_session_id|_rails_session",
+            "confidence": 45
+          }
+        ],
+        "headers": [
+          {
+            "key": "x-powered-by",
+            "regex": "Phusion Passenger",
+            "confidence": 30
+          }
+        ],
+        "html": [
+          {
+            "regex": "csrf-param|authenticity_token",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Express",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": true,
+      "implies": [
+        "Node.js"
+      ],
+      "website": "https://expressjs.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-powered-by",
+            "regex": "Express",
+            "confidence": 70
+          }
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": true,
+      "website": "https://dotnet.microsoft.com/apps/aspnet",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-aspnet-version",
+            "regex": "([0-9.]+)",
+            "version": 1,
+            "confidence": 75
+          },
+          {
+            "key": "x-powered-by",
+            "regex": "ASP\\.NET",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^ASP\\.NET_SessionId",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Nginx",
+      "categories": [
+        "Web server"
+      ],
+      "verified": true,
+      "website": "https://nginx.org",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "nginx(?:/([0-9.]+))?",
+            "version": 1,
+            "confidence": 85
+          }
+        ]
+      }
+    },
+    {
+      "name": "Apache HTTP Server",
+      "categories": [
+        "Web server"
+      ],
+      "verified": true,
+      "website": "https://httpd.apache.org",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "Apache(?:/([0-9.]+))?",
+            "version": 1,
+            "confidence": 85
+          }
+        ]
+      }
+    },
+    {
+      "name": "Microsoft IIS",
+      "categories": [
+        "Web server"
+      ],
+      "verified": true,
+      "website": "https://www.iis.net",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "Microsoft-IIS(?:/([0-9.]+))?",
+            "version": 1,
+            "confidence": 85
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare",
+      "categories": [
+        "CDN",
+        "WAF/Security"
+      ],
+      "verified": true,
+      "website": "https://www.cloudflare.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "cloudflare",
+            "confidence": 70
+          },
+          {
+            "key": "cf-ray",
+            "regex": ".+",
+            "confidence": 60
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^__cf_bm|^cf_clearance",
+            "confidence": 30
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "cloudflare\\.com",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "Amazon CloudFront",
+      "categories": [
+        "CDN"
+      ],
+      "verified": true,
+      "website": "https://aws.amazon.com/cloudfront/",
+      "signals": {
+        "headers": [
+          {
+            "key": "via",
+            "regex": "CloudFront",
+            "confidence": 65
+          },
+          {
+            "key": "x-amz-cf-id",
+            "regex": ".+",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Akamai",
+      "categories": [
+        "CDN",
+        "WAF/Security"
+      ],
+      "verified": false,
+      "website": "https://www.akamai.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "AkamaiGHost",
+            "confidence": 60
+          },
+          {
+            "key": "x-akamai-transformed",
+            "regex": ".+",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Imperva Incapsula",
+      "categories": [
+        "WAF/Security"
+      ],
+      "verified": false,
+      "website": "https://www.imperva.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^visid_incap_|^incap_ses_",
+            "confidence": 65
+          }
+        ],
+        "headers": [
+          {
+            "key": "x-iinfo",
+            "regex": ".+",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Google Analytics (GA4)",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": true,
+      "website": "https://analytics.google.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "googletagmanager\\.com/gtag/js",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^_ga$|^_ga_",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "gtag",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Google Tag Manager",
+      "categories": [
+        "Tag manager"
+      ],
+      "verified": true,
+      "website": "https://tagmanager.google.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "googletagmanager\\.com/gtm\\.js",
+            "confidence": 60
+          }
+        ],
+        "globals": [
+          {
+            "path": "google_tag_manager",
+            "confidence": 45
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "googletagmanager\\.com",
+            "confidence": 25
+          }
+        ],
+        "html": [
+          {
+            "regex": "googletagmanager\\.com/ns\\.html\\?id=GTM-",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bootstrap",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": true,
+      "website": "https://getbootstrap.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "bootstrap(?:\\.bundle)?[@/-]?([0-9.]+)?(?:\\.min)?\\.js",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "<link[^>]+bootstrap(?:\\.min)?\\.css",
+            "confidence": 35
+          }
+        ],
+        "cssVars": [
+          {
+            "regex": "^--bs-",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tailwind CSS",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": true,
+      "website": "https://tailwindcss.com",
+      "signals": {
+        "html": [
+          {
+            "regex": "class=\"[^\"]*\\b(?:text|bg|border)-\\w+-\\d{3}\\b",
+            "confidence": 40
+          },
+          {
+            "regex": "class=\"[^\"]*\\b(?:flex|grid)\\b",
+            "confidence": 10
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "tailwindcss",
+            "confidence": 50
+          }
+        ],
+        "cssVars": [
+          {
+            "regex": "^--tw-",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "PHP",
+      "categories": [
+        "Programming language"
+      ],
+      "verified": true,
+      "website": "https://www.php.net",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-powered-by",
+            "regex": "PHP/([0-9.]+)",
+            "version": 1,
+            "confidence": 80
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^PHPSESSID",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Python",
+      "categories": [
+        "Programming language"
+      ],
+      "verified": false,
+      "website": "https://www.python.org",
+      "signals": {}
+    },
+    {
+      "name": "Ruby",
+      "categories": [
+        "Programming language"
+      ],
+      "verified": false,
+      "website": "https://www.ruby-lang.org",
+      "signals": {}
+    },
+    {
+      "name": "Node.js",
+      "categories": [
+        "Runtime"
+      ],
+      "verified": false,
+      "website": "https://nodejs.org",
+      "signals": {}
+    },
+    {
+      "name": "Webpack",
+      "categories": [
+        "Build tool"
+      ],
+      "verified": true,
+      "website": "https://webpack.js.org",
+      "signals": {
+        "html": [
+          {
+            "regex": "webpackJsonp|__webpack_require__",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vite",
+      "categories": [
+        "Build tool"
+      ],
+      "verified": false,
+      "website": "https://vitejs.dev",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "/@vite/client",
+            "confidence": 45
+          },
+          {
+            "regex": "assets/index-[\\w]+\\.js",
+            "confidence": 15
+          }
+        ],
+        "html": [
+          {
+            "regex": "type=\"module\"[^>]*src=\"/src/main",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Font Awesome",
+      "categories": [
+        "Font script"
+      ],
+      "verified": true,
+      "website": "https://fontawesome.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "font-?awesome[@/-]?([0-9.]+)?",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "<link[^>]+font-awesome",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "Stripe",
+      "categories": [
+        "Payment processor"
+      ],
+      "verified": true,
+      "website": "https://stripe.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.stripe\\.com",
+            "confidence": 65
+          }
+        ],
+        "globals": [
+          {
+            "path": "Stripe",
+            "confidence": 40
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "js\\.stripe\\.com",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "reCAPTCHA",
+      "categories": [
+        "Security",
+        "CAPTCHA"
+      ],
+      "verified": true,
+      "website": "https://www.google.com/recaptcha/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "www\\.google\\.com/recaptcha/api\\.js|recaptcha/releases",
+            "confidence": 65
+          }
+        ],
+        "dom": [
+          {
+            "selector": ".g-recaptcha, [data-sitekey]",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Sentry",
+      "categories": [
+        "Error monitoring"
+      ],
+      "verified": false,
+      "website": "https://sentry.io",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "browser\\.sentry-cdn\\.com/([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ],
+        "globals": [
+          {
+            "path": "Sentry.SDK_VERSION",
+            "confidence": 85,
+            "isVersionLike": true
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "sentry\\.io",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lodash",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": true,
+      "website": "https://lodash.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "lodash(?:\\.min)?[@/-]?([0-9.]+)?\\.js",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "_.VERSION",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Moment.js",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": true,
+      "website": "https://momentjs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "moment(?:\\.min)?[@/-]?([0-9.]+)?\\.js",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "moment.version",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "GSAP",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://gsap.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "gsap(?:\\.min)?[@/-]?([0-9.]+)?\\.js",
+            "version": 1,
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "gsap.version",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Redux",
+      "categories": [
+        "State management"
+      ],
+      "verified": false,
+      "website": "https://redux.js.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "redux(?:\\.min)?[@/-]?([0-9.]+)?\\.js",
+            "version": 1,
+            "confidence": 40
+          }
+        ],
+        "html": [
+          {
+            "regex": "\\bcombineReducers\\(|\\bcreateStore\\(",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "GraphQL",
+      "categories": [
+        "API technology"
+      ],
+      "verified": false,
+      "website": "https://graphql.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "graphql",
+            "confidence": 20
+          }
+        ],
+        "requestUrl": [
+          {
+            "regex": "/graphql(?:$|[/?])",
+            "confidence": 55
+          }
+        ],
+        "html": [
+          {
+            "regex": "application/graphql|/graphql[\"'](?:\\s|>)",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "__APOLLO_CLIENT__",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Varnish",
+      "categories": [
+        "Caching"
+      ],
+      "verified": false,
+      "website": "https://varnish-cache.org",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-varnish",
+            "regex": ".+",
+            "confidence": 60
+          },
+          {
+            "key": "via",
+            "regex": "varnish",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Algolia",
+      "categories": [
+        "Search"
+      ],
+      "verified": false,
+      "website": "https://www.algolia.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "algolia(?:net)?\\.(?:com|net)",
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "algoliasearch",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Google Maps Platform",
+      "categories": [
+        "Maps"
+      ],
+      "verified": false,
+      "website": "https://mapsplatform.google.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "maps\\.googleapis\\.com",
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "maps\\.googleapis\\.com/maps/api",
+            "confidence": 55
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "maps\\.googleapis\\.com",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Jenkins",
+      "categories": [
+        "CI/CD",
+        "Admin panel"
+      ],
+      "verified": false,
+      "website": "https://www.jenkins.io",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-jenkins",
+            "regex": "([0-9.]+)",
+            "version": 1,
+            "confidence": 85
+          }
+        ]
+      }
+    },
+    {
+      "name": "GitLab",
+      "categories": [
+        "Dev tooling",
+        "Admin panel"
+      ],
+      "verified": false,
+      "website": "https://gitlab.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^_gitlab_session",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "phpMyAdmin",
+      "categories": [
+        "Admin panel",
+        "Database"
+      ],
+      "verified": false,
+      "website": "https://www.phpmyadmin.net",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^phpMyAdmin",
+            "confidence": 55
+          }
+        ],
+        "html": [
+          {
+            "regex": "name=\"pma_password\"",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Grafana",
+      "categories": [
+        "Monitoring",
+        "Admin panel"
+      ],
+      "verified": false,
+      "website": "https://grafana.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^grafana_session",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ghost",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "website": "https://ghost.org",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Ghost\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/ghost/",
+            "confidence": 40
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^ghost-members-ssr",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Squarespace",
+      "categories": [
+        "Website builder"
+      ],
+      "verified": false,
+      "website": "https://www.squarespace.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Squarespace",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "static1\\.squarespace\\.com",
+            "confidence": 50
+          }
+        ],
+        "html": [
+          {
+            "regex": "Static\\.SQUARESPACE_CONTEXT",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Wix",
+      "categories": [
+        "Website builder"
+      ],
+      "verified": false,
+      "website": "https://www.wix.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Wix\\.com",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "static\\.wixstatic\\.com",
+            "confidence": 50
+          }
+        ],
+        "html": [
+          {
+            "regex": "wix-warmup-data",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Webflow",
+      "categories": [
+        "Website builder"
+      ],
+      "verified": false,
+      "website": "https://webflow.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Webflow",
+            "confidence": 55
+          }
+        ],
+        "html": [
+          {
+            "regex": "data-wf-site=\"",
+            "confidence": 50
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "assets\\.website-files\\.com",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Craft CMS",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "website": "https://craftcms.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-powered-by",
+            "regex": "Craft CMS",
+            "confidence": 65
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^CraftSessionId",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET Core (Kestrel)",
+      "categories": [
+        "Web server",
+        "Web framework"
+      ],
+      "verified": false,
+      "website": "https://dotnet.microsoft.com/apps/aspnet",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "^Kestrel",
+            "confidence": 75
+          }
+        ]
+      }
+    },
+    {
+      "name": "Flask (Werkzeug dev server)",
+      "categories": [
+        "Web framework"
+      ],
+      "verified": false,
+      "website": "https://flask.palletsprojects.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "Werkzeug(?:/([0-9.]+))?",
+            "version": 1,
+            "confidence": 70
+          }
+        ]
+      }
+    },
+    {
+      "name": "Astro",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": false,
+      "website": "https://astro.build",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Astro v?([0-9.]+)?",
+            "version": 1,
+            "confidence": 65
+          }
+        ]
+      }
+    },
+    {
+      "name": "SvelteKit",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": false,
+      "website": "https://kit.svelte.dev",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "/_app/immutable/",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ember.js",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": false,
+      "website": "https://emberjs.com",
+      "signals": {
+        "globals": [
+          {
+            "path": "Ember.VERSION",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Alpine.js",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": false,
+      "website": "https://alpinejs.dev",
+      "signals": {
+        "globals": [
+          {
+            "path": "Alpine.version",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "alpinejs?(?:\\.min)?\\.js",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Backbone.js",
+      "categories": [
+        "JavaScript framework"
+      ],
+      "verified": false,
+      "website": "https://backbonejs.org",
+      "signals": {
+        "globals": [
+          {
+            "path": "Backbone.VERSION",
+            "confidence": 90,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Hotjar",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://www.hotjar.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "static\\.hotjar\\.com",
+            "confidence": 60
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "hotjar\\.com",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Intercom",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.intercom.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "widget\\.intercom\\.io",
+            "confidence": 55
+          }
+        ],
+        "globals": [
+          {
+            "path": "Intercom",
+            "confidence": 40
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "intercom\\.io",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Drift",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.drift.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.driftt\\.com",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Zendesk Chat",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.zendesk.com/service/messaging/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "static\\.zdassets\\.com",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Crisp",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://crisp.chat",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "client\\.crisp\\.chat",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tawk.to",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.tawk.to",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "embed\\.tawk\\.to",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Optimizely",
+      "categories": [
+        "A/B testing"
+      ],
+      "verified": false,
+      "website": "https://www.optimizely.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.optimizely\\.com",
+            "confidence": 55
+          }
+        ],
+        "globals": [
+          {
+            "path": "optimizely",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "HubSpot",
+      "categories": [
+        "Marketing automation"
+      ],
+      "verified": false,
+      "website": "https://www.hubspot.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.hs-scripts\\.com|js\\.hubspot\\.com|js\\.hs-analytics\\.net",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^__hstc|^hubspotutk",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mailchimp",
+      "categories": [
+        "Marketing automation"
+      ],
+      "verified": false,
+      "website": "https://mailchimp.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "chimpstatic\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchDarkly",
+      "categories": [
+        "Feature flags"
+      ],
+      "verified": false,
+      "website": "https://launchdarkly.com",
+      "signals": {
+        "globals": [
+          {
+            "path": "LDClient",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "hCaptcha",
+      "categories": [
+        "Security",
+        "CAPTCHA"
+      ],
+      "verified": false,
+      "website": "https://www.hcaptcha.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "hcaptcha\\.com/1/api\\.js",
+            "confidence": 60
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[data-hcaptcha-widget-id]",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare Turnstile",
+      "categories": [
+        "Security",
+        "CAPTCHA"
+      ],
+      "verified": false,
+      "website": "https://www.cloudflare.com/products/turnstile/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "challenges\\.cloudflare\\.com/turnstile",
+            "confidence": 65
+          }
+        ]
+      }
+    },
+    {
+      "name": "Fastly",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://www.fastly.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-fastly-request-id",
+            "regex": ".+",
+            "confidence": 60
+          },
+          {
+            "key": "x-served-by",
+            "regex": "cache-",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "LiteSpeed",
+      "categories": [
+        "Web server"
+      ],
+      "verified": false,
+      "website": "https://www.litespeedtech.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "LiteSpeed",
+            "confidence": 80
+          }
+        ]
+      }
+    },
+    {
+      "name": "Caddy",
+      "categories": [
+        "Web server"
+      ],
+      "verified": false,
+      "website": "https://caddyserver.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "^Caddy",
+            "confidence": 80
+          }
+        ]
+      }
+    },
+    {
+      "name": "Matomo",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://matomo.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "matomo\\.(?:js|php)|piwik\\.js",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^_pk_id",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Segment",
+      "categories": [
+        "Analytics",
+        "Tag manager"
+      ],
+      "verified": false,
+      "website": "https://segment.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.segment\\.com/analytics\\.js",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "WooCommerce",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "implies": [
+        "WordPress"
+      ],
+      "website": "https://woocommerce.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^woocommerce_cart_hash|^wp_woocommerce_session",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "PrestaShop",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "website": "https://www.prestashop.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "PrestaShop",
+            "confidence": 55
+          }
+        ],
+        "cookies": [
+          {
+            "regex": "^PrestaShop-",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "OpenCart",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "website": "https://www.opencart.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^OCSESSID",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "BigCommerce",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "website": "https://www.bigcommerce.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\d*\\.bigcommerce\\.com",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "OneTrust",
+      "categories": [
+        "Consent management"
+      ],
+      "verified": false,
+      "website": "https://www.onetrust.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.cookielaw\\.org",
+            "confidence": 55
+          }
+        ],
+        "globals": [
+          {
+            "path": "Optanon",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Chakra UI",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://chakra-ui.com",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--chakra-",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ant Design",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://ant.design",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--ant-",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "antd(?:\\.min)?\\.js",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mantine",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://mantine.dev",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--mantine-",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Radix UI",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://www.radix-ui.com",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--radix-",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shoelace",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://shoelace.style",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--sl-",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ionic Framework",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://ionicframework.com",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--ion-",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Material Web Components",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://github.com/material-components/material-web",
+      "signals": {
+        "cssVars": [
+          {
+            "regex": "^--mdc-",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Socket.IO",
+      "categories": [
+        "Real-time"
+      ],
+      "verified": false,
+      "website": "https://socket.io",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "/socket\\.io/\\?",
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "socket\\.io(?:\\.min)?\\.js",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pusher",
+      "categories": [
+        "Real-time"
+      ],
+      "verified": false,
+      "website": "https://pusher.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "ws-[a-z0-9]+\\.pusher\\.com|pusher\\.com/app/",
+            "confidence": 60
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "js\\.pusher\\.com",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ably",
+      "categories": [
+        "Real-time"
+      ],
+      "verified": false,
+      "website": "https://ably.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "realtime\\.ably\\.io",
+            "confidence": 60
+          }
+        ],
+        "cspDomains": [
+          {
+            "regex": "realtime\\.ably\\.io",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Firebase Realtime Database",
+      "categories": [
+        "Real-time",
+        "Database"
+      ],
+      "verified": false,
+      "website": "https://firebase.google.com/products/realtime-database",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "firebaseio\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET SignalR",
+      "categories": [
+        "Real-time"
+      ],
+      "verified": false,
+      "website": "https://dotnet.microsoft.com/apps/aspnet/signalr",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "/signalr/",
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "signalr(?:\\.min)?\\.js",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vercel",
+      "categories": [
+        "Hosting"
+      ],
+      "verified": false,
+      "website": "https://vercel.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-vercel-id",
+            "regex": ".+",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "GitHub Pages",
+      "categories": [
+        "Hosting"
+      ],
+      "verified": false,
+      "website": "https://pages.github.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "^GitHub\\.com",
+            "confidence": 65
+          }
+        ]
+      }
+    },
+    {
+      "name": "Umbraco",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "implies": [
+        "ASP.NET"
+      ],
+      "website": "https://umbraco.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-umbraco-version",
+            "regex": "([0-9.]+)",
+            "version": 1,
+            "confidence": 80
+          }
+        ]
+      }
+    },
+    {
+      "name": "Contentful",
+      "categories": [
+        "Headless CMS"
+      ],
+      "verified": false,
+      "website": "https://www.contentful.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "cdn\\.contentful\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Supabase",
+      "categories": [
+        "Backend as a service"
+      ],
+      "verified": false,
+      "website": "https://supabase.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "\\.supabase\\.co",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Salesforce Commerce Cloud",
+      "categories": [
+        "Ecommerce"
+      ],
+      "verified": false,
+      "website": "https://www.salesforce.com/commerce",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^dwsid|^dwanonymous_",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "jsDelivr",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://www.jsdelivr.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.jsdelivr\\.net",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "unpkg",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://unpkg.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "unpkg\\.com",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "cdnjs",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://cdnjs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdnjs\\.cloudflare\\.com",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Yandex Metrica",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://metrica.yandex.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "mc\\.yandex\\.ru/metrika/tag\\.js",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vimeo",
+      "categories": [
+        "Video"
+      ],
+      "verified": false,
+      "website": "https://vimeo.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "player\\.vimeo\\.com",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "YouTube Embed",
+      "categories": [
+        "Video"
+      ],
+      "verified": false,
+      "website": "https://youtube.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "youtube\\.com/iframe_api",
+            "confidence": 45
+          }
+        ],
+        "dom": [
+          {
+            "selector": "iframe[src*='youtube.com/embed']",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Weglot",
+      "categories": [
+        "Translation"
+      ],
+      "verified": false,
+      "website": "https://www.weglot.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.weglot\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Klaviyo",
+      "categories": [
+        "Marketing automation"
+      ],
+      "verified": false,
+      "website": "https://www.klaviyo.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "static\\.klaviyo\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Braintree",
+      "categories": [
+        "Payment processor"
+      ],
+      "verified": false,
+      "website": "https://www.braintreepayments.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.braintreegateway\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Square",
+      "categories": [
+        "Payment processor"
+      ],
+      "verified": false,
+      "website": "https://squareup.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.squareup\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Recurly",
+      "categories": [
+        "Payment processor",
+        "Subscription billing"
+      ],
+      "verified": false,
+      "website": "https://recurly.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.recurly\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Chargebee",
+      "categories": [
+        "Subscription billing"
+      ],
+      "verified": false,
+      "website": "https://www.chargebee.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "js\\.chargebee\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Netlify",
+      "categories": [
+        "Hosting"
+      ],
+      "verified": false,
+      "website": "https://www.netlify.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-nf-request-id",
+            "regex": ".+",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "MODX",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "implies": [
+        "PHP"
+      ],
+      "website": "https://modx.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "MODX",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Statamic",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "implies": [
+        "PHP"
+      ],
+      "website": "https://statamic.com",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^statamic_session",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mixpanel",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://mixpanel.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.mxpnl\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Amplitude",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://amplitude.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.amplitude\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "FullStory",
+      "categories": [
+        "Analytics",
+        "Session replay"
+      ],
+      "verified": false,
+      "website": "https://www.fullstory.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "edge\\.fullstory\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Datadog RUM",
+      "categories": [
+        "Monitoring"
+      ],
+      "verified": false,
+      "website": "https://www.datadoghq.com/product/real-user-monitoring/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "www\\.datadoghq-browser-agent\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "New Relic Browser",
+      "categories": [
+        "Monitoring"
+      ],
+      "verified": false,
+      "website": "https://newrelic.com/platform/browser-monitoring",
+      "signals": {
+        "globals": [
+          {
+            "path": "NREUM",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Rollbar",
+      "categories": [
+        "Error monitoring"
+      ],
+      "verified": false,
+      "website": "https://rollbar.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.rollbar\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bugsnag",
+      "categories": [
+        "Error monitoring"
+      ],
+      "verified": false,
+      "website": "https://www.bugsnag.com",
+      "signals": {
+        "globals": [
+          {
+            "path": "Bugsnag",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Freshchat",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.freshworks.com/live-chat-software/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "wchat\\.freshchat\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "LiveChat",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.livechat.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.livechatinc\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Olark",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.olark.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "static\\.olark\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Typeform",
+      "categories": [
+        "Forms"
+      ],
+      "verified": false,
+      "website": "https://www.typeform.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "embed\\.typeform\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "SurveyMonkey",
+      "categories": [
+        "Forms"
+      ],
+      "verified": false,
+      "website": "https://www.surveymonkey.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "widget\\.surveymonkey\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Calendly",
+      "categories": [
+        "Scheduling"
+      ],
+      "verified": false,
+      "website": "https://calendly.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "assets\\.calendly\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cal.com",
+      "categories": [
+        "Scheduling"
+      ],
+      "verified": false,
+      "website": "https://cal.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "app\\.cal\\.com/embed",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Help Scout",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.helpscout.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "beacon-v2\\.helpscout\\.net",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Fly.io",
+      "categories": [
+        "Hosting"
+      ],
+      "verified": false,
+      "website": "https://fly.io",
+      "signals": {
+        "headers": [
+          {
+            "key": "fly-request-id",
+            "regex": ".+",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Clerk",
+      "categories": [
+        "Authentication"
+      ],
+      "verified": false,
+      "website": "https://clerk.com",
+      "signals": {
+        "globals": [
+          {
+            "path": "Clerk",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Auth0",
+      "categories": [
+        "Authentication"
+      ],
+      "verified": false,
+      "website": "https://auth0.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.auth0\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Okta",
+      "categories": [
+        "Authentication"
+      ],
+      "verified": false,
+      "website": "https://www.okta.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "oktacdn\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Sanity",
+      "categories": [
+        "Headless CMS"
+      ],
+      "verified": false,
+      "website": "https://www.sanity.io",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "apicdn\\.sanity\\.io|api\\.sanity\\.io",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Prismic",
+      "categories": [
+        "Headless CMS"
+      ],
+      "verified": false,
+      "website": "https://prismic.io",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "cdn\\.prismic\\.io",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Storyblok",
+      "categories": [
+        "Headless CMS"
+      ],
+      "verified": false,
+      "website": "https://www.storyblok.com",
+      "signals": {
+        "requestUrl": [
+          {
+            "regex": "api\\.storyblok\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Builder.io",
+      "categories": [
+        "Headless CMS"
+      ],
+      "verified": false,
+      "website": "https://www.builder.io",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.builder\\.io",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Framer",
+      "categories": [
+        "Website builder"
+      ],
+      "verified": false,
+      "website": "https://www.framer.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Framer",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Plausible Analytics",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://plausible.io",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "plausible\\.io/js/script\\.js",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Fathom Analytics",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://usefathom.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.usefathom\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Simple Analytics",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://simpleanalytics.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "scripts\\.simpleanalyticscdn\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostHog",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://posthog.com",
+      "signals": {
+        "globals": [
+          {
+            "path": "posthog",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Heap",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://www.heap.io",
+      "signals": {
+        "globals": [
+          {
+            "path": "heap",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Crazy Egg",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://www.crazyegg.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "script\\.crazyegg\\.com",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Microsoft Clarity",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://clarity.microsoft.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "www\\.clarity\\.ms/tag/",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Meta Pixel",
+      "categories": [
+        "Analytics"
+      ],
+      "verified": false,
+      "website": "https://www.facebook.com/business/tools/meta-pixel",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "connect\\.facebook\\.net/[^\"'\\s]*/fbevents\\.js",
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "fbq\\(\\s*['\"]init['\"]",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "fbq",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Gatsby",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": false,
+      "website": "https://www.gatsbyjs.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Gatsby\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ],
+        "requestUrl": [
+          {
+            "regex": "/page-data/[^\"'\\s]*/page-data\\.json",
+            "confidence": 45
+          }
+        ],
+        "dom": [
+          {
+            "selector": "#___gatsby",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Remix",
+      "categories": [
+        "JavaScript framework",
+        "SSR"
+      ],
+      "verified": false,
+      "website": "https://remix.run",
+      "signals": {
+        "html": [
+          {
+            "regex": "window\\.__remixContext\\s*=",
+            "confidence": 55
+          },
+          {
+            "regex": "window\\.__remixManifest\\s*=",
+            "confidence": 40
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)build/entry\\.client-[^\"'\\s]*\\.js",
+            "confidence": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "Docusaurus",
+      "categories": [
+        "Static site generator"
+      ],
+      "verified": false,
+      "website": "https://docusaurus.io",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Docusaurus\\s*v?([0-9.]+)?",
+            "version": 1,
+            "confidence": 60
+          }
+        ],
+        "dom": [
+          {
+            "selector": "#__docusaurus",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Hugo",
+      "categories": [
+        "Static site generator"
+      ],
+      "verified": false,
+      "website": "https://gohugo.io",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Hugo\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Jekyll",
+      "categories": [
+        "Static site generator"
+      ],
+      "verified": false,
+      "website": "https://jekyllrb.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Jekyll\\s*v?([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Three.js",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://threejs.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)three(?:\\.module)?(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "THREE.REVISION",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Chart.js",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://www.chartjs.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)chart(?:\\.umd)?(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "Chart.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Leaflet",
+      "categories": [
+        "Maps"
+      ],
+      "verified": false,
+      "website": "https://leafletjs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)leaflet(?:-src)?(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "L.version",
+            "confidence": 75,
+            "isVersionLike": true
+          }
+        ],
+        "dom": [
+          {
+            "selector": ".leaflet-container",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mapbox GL JS",
+      "categories": [
+        "Maps"
+      ],
+      "verified": false,
+      "website": "https://docs.mapbox.com/mapbox-gl-js/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)mapbox-gl(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 40
+          }
+        ],
+        "globals": [
+          {
+            "path": "mapboxgl.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Swiper",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://swiperjs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)swiper-bundle(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "Swiper.version",
+            "confidence": 75,
+            "isVersionLike": true
+          }
+        ],
+        "dom": [
+          {
+            "selector": ".swiper-container, .swiper",
+            "confidence": 15
+          }
+        ]
+      }
+    },
+    {
+      "name": "CKEditor",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://ckeditor.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)ckeditor(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "CKEDITOR.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "TinyMCE",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://www.tiny.cloud",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)tinymce(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "tinymce.majorVersion",
+            "confidence": 75,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "LogRocket",
+      "categories": [
+        "Session replay"
+      ],
+      "verified": false,
+      "website": "https://logrocket.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.lr-ingest\\.(?:io|com)|cdn\\.logrocket\\.io",
+            "confidence": 40
+          }
+        ],
+        "requestUrl": [
+          {
+            "regex": "r\\.lr-ingest\\.(?:io|com)",
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "LogRocket",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Elementor",
+      "categories": [
+        "Website builder"
+      ],
+      "verified": false,
+      "implies": [
+        "WordPress"
+      ],
+      "website": "https://elementor.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Elementor\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ],
+        "scriptSrc": [
+          {
+            "regex": "/wp-content/plugins/elementor/",
+            "confidence": 45
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[data-elementor-type]",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Yoast SEO",
+      "categories": [
+        "SEO"
+      ],
+      "verified": false,
+      "implies": [
+        "WordPress"
+      ],
+      "website": "https://yoast.com",
+      "signals": {
+        "meta": [
+          {
+            "name": "generator",
+            "regex": "Yoast SEO\\s*([0-9.]+)?",
+            "version": 1,
+            "confidence": 55
+          }
+        ],
+        "html": [
+          {
+            "regex": "This site is optimized with the Yoast SEO plugin",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "D3.js",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://d3js.org",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)d3(?:\\.v[0-9]+)?(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "d3.version",
+            "confidence": 75,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Highcharts",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://www.highcharts.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)highcharts(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 30
+          }
+        ],
+        "globals": [
+          {
+            "path": "Highcharts.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "AOS",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://michalsnik.github.io/aos/",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)aos(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 25
+          }
+        ],
+        "dom": [
+          {
+            "selector": "[data-aos]",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "MUI (Material UI)",
+      "categories": [
+        "UI framework"
+      ],
+      "verified": false,
+      "website": "https://mui.com",
+      "signals": {
+        "html": [
+          {
+            "regex": "class=\"[^\"]*\\bMui[A-Z][A-Za-z]*-root\\b",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Formspree",
+      "categories": [
+        "Forms"
+      ],
+      "verified": false,
+      "website": "https://formspree.io",
+      "signals": {
+        "html": [
+          {
+            "regex": "action=[\"']https?://formspree\\.io/f/[a-zA-Z0-9]+[\"']",
+            "confidence": 55
+          }
+        ],
+        "requestUrl": [
+          {
+            "regex": "formspree\\.io/f/",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Wistia",
+      "categories": [
+        "Video"
+      ],
+      "verified": false,
+      "website": "https://wistia.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "fast\\.wistia\\.(?:com|net)/embed",
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "Wistia",
+            "confidence": 40
+          }
+        ],
+        "dom": [
+          {
+            "selector": ".wistia_embed",
+            "confidence": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "JW Player",
+      "categories": [
+        "Video"
+      ],
+      "verified": false,
+      "website": "https://www.jwplayer.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:jwpsrv\\.com|jwplatform\\.com|jwpcdn\\.com)/(?:library|player)",
+            "confidence": 40
+          }
+        ],
+        "globals": [
+          {
+            "path": "jwplayer.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mux",
+      "categories": [
+        "Video"
+      ],
+      "verified": false,
+      "website": "https://www.mux.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)mux(?:-embed)?(?:\\.min)?\\.js(?:[?#]|$)|src\\.mux\\.com",
+            "confidence": 35
+          }
+        ],
+        "dom": [
+          {
+            "selector": "mux-player, mux-video",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Sucuri",
+      "categories": [
+        "WAF/Security"
+      ],
+      "verified": false,
+      "website": "https://sucuri.net",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-sucuri-id",
+            "regex": ".+",
+            "confidence": 60
+          },
+          {
+            "key": "x-sucuri-cache",
+            "regex": ".+",
+            "confidence": 55
+          },
+          {
+            "key": "server",
+            "regex": "Sucuri",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bunny CDN",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://bunny.net",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "BunnyCDN",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "KeyCDN",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://www.keycdn.com",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "keycdn-engine",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Firebase Hosting",
+      "categories": [
+        "Hosting"
+      ],
+      "verified": false,
+      "website": "https://firebase.google.com/products/hosting",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "Firebase Hosting",
+            "confidence": 60
+          }
+        ]
+      }
+    },
+    {
+      "name": "Azure Front Door",
+      "categories": [
+        "CDN"
+      ],
+      "verified": false,
+      "website": "https://azure.microsoft.com/en-us/products/frontdoor",
+      "signals": {
+        "headers": [
+          {
+            "key": "x-azure-ref",
+            "regex": ".+",
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "GeeTest",
+      "categories": [
+        "CAPTCHA"
+      ],
+      "verified": false,
+      "website": "https://www.geetest.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "static\\.geetest\\.com",
+            "confidence": 50
+          }
+        ],
+        "globals": [
+          {
+            "path": "initGeetest",
+            "confidence": 40
+          }
+        ]
+      }
+    },
+    {
+      "name": "Arkose Labs (FunCaptcha)",
+      "categories": [
+        "CAPTCHA"
+      ],
+      "verified": false,
+      "website": "https://www.arkoselabs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "client-api\\.arkoselabs\\.com",
+            "confidence": 55
+          }
+        ],
+        "dom": [
+          {
+            "selector": "#FunCaptcha, [id^=\"FunCaptcha\"]",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tidio",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.tidio.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "code\\.tidio\\.co",
+            "confidence": 50
+          }
+        ],
+        "globals": [
+          {
+            "path": "tidioChatApi",
+            "confidence": 45
+          }
+        ]
+      }
+    },
+    {
+      "name": "Userlike",
+      "categories": [
+        "Chat widget"
+      ],
+      "verified": false,
+      "website": "https://www.userlike.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "userlike-cdn-widgets",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "TrackJS",
+      "categories": [
+        "Error monitoring"
+      ],
+      "verified": false,
+      "website": "https://trackjs.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.trackjs\\.com",
+            "confidence": 45
+          }
+        ],
+        "globals": [
+          {
+            "path": "TrackJS.version",
+            "confidence": 70,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Raygun",
+      "categories": [
+        "Error monitoring"
+      ],
+      "verified": false,
+      "website": "https://raygun.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "cdn\\.raygun\\.io/raygun4js/raygun\\.js",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "jQuery UI",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://jqueryui.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)jquery-ui(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 35
+          }
+        ],
+        "globals": [
+          {
+            "path": "jQuery.ui.version",
+            "confidence": 80,
+            "isVersionLike": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Axios",
+      "categories": [
+        "JavaScript library"
+      ],
+      "verified": false,
+      "website": "https://axios-http.com",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "(?:^|/)axios@([0-9.]+)/dist/axios(?:\\.min)?\\.js",
+            "version": 1,
+            "confidence": 55
+          },
+          {
+            "regex": "(?:^|/)axios(?:\\.min)?\\.js(?:[?#]|$)",
+            "confidence": 25
+          }
+        ]
+      }
+    },
+    {
+      "name": "Adobe Experience Manager",
+      "categories": [
+        "CMS"
+      ],
+      "verified": false,
+      "website": "https://business.adobe.com/products/experience-manager/adobe-experience-manager.html",
+      "signals": {
+        "scriptSrc": [
+          {
+            "regex": "/etc\\.clientlibs/",
+            "confidence": 45
+          }
+        ],
+        "html": [
+          {
+            "regex": "data-sly-[a-z]+=",
+            "confidence": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "Keycloak",
+      "categories": [
+        "Authentication"
+      ],
+      "verified": false,
+      "website": "https://www.keycloak.org",
+      "signals": {
+        "cookies": [
+          {
+            "regex": "^KEYCLOAK_SESSION$|^KEYCLOAK_IDENTITY$|^AUTH_SESSION_ID$|^KC_RESTART$",
+            "confidence": 55
+          }
+        ],
+        "html": [
+          {
+            "regex": "/realms/[a-zA-Z0-9_-]+/protocol/openid-connect/",
+            "confidence": 50
+          }
+        ]
+      }
+    },
+    {
+      "name": "Apache Tomcat",
+      "categories": [
+        "Web server"
+      ],
+      "verified": false,
+      "website": "https://tomcat.apache.org",
+      "signals": {
+        "headers": [
+          {
+            "key": "server",
+            "regex": "Apache[ -]Tomcat/([0-9.]+)",
+            "version": 1,
+            "confidence": 75
+          }
+        ],
+        "html": [
+          {
+            "regex": "Apache Tomcat/([0-9.]+)",
+            "version": 1,
+            "confidence": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "Atlassian Confluence",
+      "categories": [
+        "Collaboration"
+      ],
+      "verified": false,
+      "website": "https://www.atlassian.com/software/confluence",
+      "signals": {
+        "meta": [
+          {
+            "name": "confluence-base-url",
+            "regex": ".+",
+            "confidence": 65
+          },
+          {
+            "name": "ajs-version-number",
+            "regex": "([0-9.]+)",
+            "version": 1,
+            "confidence": 40
+          }
+        ]
+      }
+    }
+  ]
+}

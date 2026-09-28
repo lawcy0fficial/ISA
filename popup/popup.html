@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ISA</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="2.6" fill="var(--amber)"/>
+        <path d="M16 5 A11 11 0 0 1 27 15" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 9 A7 7 0 0 1 22.5 14.5" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 27 A11 11 0 0 1 5.2 17.8" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-name">ISA</span>
+        <span class="brand-sub">Integrated Stack Analyzer</span>
+      </div>
+    </div>
+    <div class="bar-actions">
+      <button id="btnDiff" class="icon-btn hidden" title="Show changes since last scan">Δ</button>
+      <button id="btnRescan" class="icon-btn" title="Rescan this page">⟳</button>
+      <div class="menu-wrap">
+        <button id="btnExport" class="icon-btn" title="Export findings">⇩</button>
+        <div id="exportMenu" class="menu hidden">
+          <button data-fmt="json">JSON</button>
+          <button data-fmt="csv">CSV</button>
+          <button data-fmt="md">Markdown report</button>
+          <button data-fmt="sarif">SARIF (CI)</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="target">
+    <div class="target-origin" id="targetOrigin">—</div>
+    <div class="target-meta">
+      <span id="scanTime">not scanned yet</span>
+      <span class="dot">·</span>
+      <span id="findingCount">0 technologies</span>
+      <span id="vulnCount" class="vuln-pill hidden">0 flagged</span>
+    </div>
+    <div class="risk-score-row hidden" id="riskScoreRow">
+      <span class="grade-badge risk-grade-badge" id="riskGradeBadge">—</span>
+      <div class="risk-score-info">
+        <span class="risk-score-label">Overall risk score: <span id="riskScoreValue">—</span>/100</span>
+        <button class="link-btn risk-breakdown-toggle" id="riskBreakdownToggle">what's this based on?</button>
+        <div class="risk-breakdown hidden" id="riskBreakdown"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="diff-panel hidden" id="diffPanel">
+    <div class="security-head">
+      <span class="exposure-title" id="diffTitle">Changes since last scan</span>
+      <button class="link-btn" id="closeDiff">close</button>
+    </div>
+    <div class="diff-list" id="diffList"></div>
+  </section>
+
+  <section class="security-panel" id="securityPanel">
+    <div class="security-head">
+      <span class="grade-badge" id="secGrade">—</span>
+      <span class="security-title">Response header posture</span>
+      <button class="link-btn" id="toggleSecDetail">details</button>
+    </div>
+    <div class="security-checks hidden" id="securityChecks"></div>
+  </section>
+
+  <section class="exposure-panel">
+    <div class="security-head">
+      <span class="exposure-title">Exposure checks (active)</span>
+      <button class="link-btn" id="btnRunExposure">run checks</button>
+      <button class="link-btn" id="btnRunGraphQL">check GraphQL introspection</button>
+    </div>
+    <div class="exposure-note" id="exposureNote">
+      Makes read-only requests for /.git/HEAD, /.env, exposed source maps, debug/error pages, open directory listings, security.txt, and robots.txt/sitemap.xml on this origin. Not run automatically — only on request. GraphQL introspection is a separate button since it's a POST rather than a GET.
+    </div>
+    <div class="exposure-results" id="exposureResults"></div>
+  </section>
+
+  <nav class="filters" id="categoryFilters"></nav>
+
+  <main id="results" class="results">
+    <div class="empty-state" id="emptyState">
+      Waiting for scan data — open or reload the tab you want enumerated.
+    </div>
+  </main>
+
+  <footer class="legend">
+    <span><i class="dot-verified"></i> verified fingerprint</span>
+    <span><i class="dot-community"></i> imported / unverified</span>
+    <span><i class="dot-inferred"></i> inferred</span>
+    <button class="link-btn" id="btnHistory" style="margin-left:auto">history</button>
+    <button class="link-btn" id="btnScanAllTabs" title="Reloads only tabs ISA hasn't scanned yet — never touches a tab that already has results">scan all tabs</button>
+    <button class="link-btn" id="btnManageRules">custom rules</button>
+  </footer>
+
+  <script src="../lib/risk-score.js"></script>
+  <script src="../lib/sarif-export.js"></script>
+  <script src="../lib/cpe-lookup.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "license": "GPL-3.0-only",
+    "source": "Converted from github.com/enthec/webappanalyzer (GPL-3.0), a community-maintained continuation of Wappalyzer's original fingerprint dataset. See GPL-PACK-NOTICE.md at the project root before enabling or redistributing this file.",
+    "note": "This file is DISABLED by default. Enabling it in ISA's options page merges these entries into your scan results, but also means any copy of ISA you redistribute WITH this pack enabled must comply with GPL-3.0 (source availability, same license, etc.) for at least this data file. The core lib/technologies.json stays MIT regardless — this pack is deliberately kept separate so enabling it is a conscious, informed choice, not something that silently changes your project's license.",
+    "conversionNote": "Original entries use Wappalyzer's schema (numeric category IDs, inline ';version:' and ';confidence:' tag syntax within pattern strings, a richer 'js'-property-existence model). Converted here to ISA's schema (named categories, separate version/confidence fields, ISA's simpler signal model) — some original signal richness (e.g. multi-condition DOM property/attribute/text checks) is necessarily simplified in translation."
+  },
+  "technologies": [
+    {
+      "name": "PayPal",
+      "categories": ["Payment processor"],
+      "verified": false,
+      "website": "https://paypal.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "paypalobjects\\.com", "confidence": 50 }],
+        "dom": [{ "selector": "[data-paypal-v4='true']", "confidence": 35 }],
+        "globals": [{ "path": "paypal", "confidence": 30 }]
+      }
+    },
+    {
+      "name": "PDF.js",
+      "categories": ["JavaScript library"],
+      "verified": false,
+      "website": "https://mozilla.github.io/pdf.js/",
+      "signals": {
+        "globals": [{ "path": "PDFJS.version", "confidence": 90, "isVersionLike": true }]
+      }
+    },
+    {
+      "name": "PWA",
+      "categories": ["Progressive web app"],
+      "verified": false,
+      "website": "https://web.dev/progressive-web-apps/",
+      "signals": {
+        "dom": [{ "selector": "link[rel='manifest']", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "Paddle",
+      "categories": ["Payment processor"],
+      "verified": false,
+      "website": "https://paddle.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "cdn\\.paddle\\.com/paddle/paddle\\.js", "confidence": 60 }]
+      }
+    },
+    {
+      "name": "Pantheon",
+      "categories": ["Hosting"],
+      "verified": false,
+      "website": "https://pantheon.io",
+      "implies": ["PHP", "Nginx"],
+      "signals": {
+        "headers": [
+          { "key": "server", "regex": "^Pantheon", "confidence": 65 },
+          { "key": "x-pantheon-styx-hostname", "regex": ".+", "confidence": 55 }
+        ]
+      }
+    },
+    {
+      "name": "POWR",
+      "categories": ["Widgets"],
+      "verified": false,
+      "website": "https://www.powr.io",
+      "signals": {
+        "scriptSrc": [{ "regex": "www\\.powr\\.io/powr\\.js", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "PIXIjs",
+      "categories": ["Graphics/animation library"],
+      "verified": false,
+      "website": "https://www.pixijs.com",
+      "signals": {
+        "globals": [{ "path": "PIXI.VERSION", "confidence": 90, "isVersionLike": true }],
+        "scriptSrc": [{ "regex": "pixi(?:\\.min|-legacy)?\\.js", "confidence": 40 }]
+      }
+    },
+    {
+      "name": "Parse.ly",
+      "categories": ["Analytics"],
+      "verified": false,
+      "website": "https://www.parse.ly",
+      "signals": {
+        "globals": [{ "path": "PARSELY", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "Partytown",
+      "categories": ["Performance"],
+      "verified": false,
+      "website": "https://partytown.builder.io",
+      "signals": {
+        "dom": [{ "selector": "script[type*='text/partytown']", "confidence": 50 }],
+        "globals": [{ "path": "partytown", "confidence": 35 }]
+      }
+    },
+    {
+      "name": "Patreon",
+      "categories": ["Membership"],
+      "verified": false,
+      "website": "https://www.patreon.com",
+      "signals": {
+        "dom": [{ "selector": "a[href*='patreon.com']", "confidence": 35 }],
+        "scriptSrc": [{ "regex": "patreon-connect/assets", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "Pelican",
+      "categories": ["Static site generator"],
+      "verified": false,
+      "website": "https://blog.getpelican.com",
+      "implies": ["Python"],
+      "signals": {
+        "html": [{ "regex": "powered by <a href=\"[^\"]*getpelican\\.com", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Docker",
+      "categories": ["Containers"],
+      "verified": false,
+      "website": "https://www.docker.com",
+      "signals": {
+        "html": [{ "regex": "<!-- This comment is expected by the docker HEALTHCHECK", "confidence": 50 }]
+      }
+    },
+    {
+      "name": "1C-Bitrix",
+      "categories": ["CMS", "Ecommerce"],
+      "verified": false,
+      "implies": ["PHP"],
+      "website": "http://www.1c-bitrix.ru",
+      "signals": {
+        "headers": [{ "key": "x-powered-cms", "regex": "Bitrix Site Manager", "confidence": 65 }],
+        "cookies": [{ "regex": "^BITRIX_", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "AMP",
+      "categories": ["Performance"],
+      "verified": false,
+      "website": "https://www.amp.dev",
+      "signals": {
+        "html": [{ "regex": "<link rel=\"amphtml\"", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Adobe Analytics",
+      "categories": ["Analytics"],
+      "verified": false,
+      "website": "https://www.adobe.com/analytics/adobe-analytics.html",
+      "signals": {
+        "globals": [{ "path": "s_c_il.0._c", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Adobe ColdFusion",
+      "categories": ["Web framework"],
+      "verified": false,
+      "website": "http://adobe.com/products/coldfusion-family.html",
+      "signals": {
+        "html": [{ "regex": "<!-- START headerTags\\.cfm", "confidence": 50 }],
+        "cookies": [{ "regex": "^CFTOKEN", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "AWStats",
+      "categories": ["Analytics"],
+      "verified": false,
+      "website": "http://awstats.sourceforge.net",
+      "signals": {
+        "meta": [{ "name": "generator", "regex": "AWStats\\s*([0-9.]+)?", "version": 1, "confidence": 60 }]
+      }
+    },
+    {
+      "name": "AccessiBe",
+      "categories": ["Accessibility"],
+      "verified": false,
+      "website": "https://accessibe.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "acsbap\\.com/.*/acsb\\.js", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Act-On",
+      "categories": ["Marketing automation"],
+      "verified": false,
+      "website": "http://act-on.com",
+      "signals": {
+        "globals": [{ "path": "ActOn", "confidence": 45 }]
+      }
+    },
+    {
+      "name": "All in One SEO Pack",
+      "categories": ["SEO"],
+      "verified": false,
+      "implies": ["WordPress"],
+      "website": "https://wordpress.org/plugins/all-in-one-seo-pack/",
+      "signals": {
+        "html": [{ "regex": "<!-- All in One SEO Pack ([0-9.]+)", "version": 1, "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Adminer",
+      "categories": ["Database", "Admin panel"],
+      "verified": false,
+      "implies": ["PHP"],
+      "website": "http://www.adminer.org",
+      "signals": {
+        "html": [{ "regex": "Adminer</a> <span class=\"version\">([0-9.]+)</span>", "version": 1, "confidence": 65 }]
+      }
+    },
+    {
+      "name": "Aegea",
+      "categories": ["Blogs"],
+      "verified": false,
+      "implies": ["PHP"],
+      "website": "http://blogengine.ru",
+      "signals": {
+        "headers": [{ "key": "x-powered-by", "regex": "E2 Aegea v(\\d+)", "version": 1, "confidence": 70 }]
+      }
+    },
+    {
+      "name": "Adzerk",
+      "categories": ["Advertising"],
+      "verified": false,
+      "website": "http://adzerk.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "adzerk\\.net/ados\\.js", "confidence": 55 }],
+        "globals": [{ "path": "ados", "confidence": 35 }]
+      }
+    },
+    {
+      "name": "Akamai Bot Manager",
+      "categories": ["Security"],
+      "verified": false,
+      "website": "http://akamai.com/bot-manager",
+      "signals": {
+        "cookies": [{ "regex": "^ak_bmsc|^bm_sv|^bm_sz", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "Adyen",
+      "categories": ["Payment processor"],
+      "verified": false,
+      "website": "https://www.adyen.com",
+      "signals": {
+        "globals": [{ "path": "adyen.encrypt.version", "confidence": 85, "isVersionLike": true }]
+      }
+    },
+    {
+      "name": "Afterpay",
+      "categories": ["Payment processor"],
+      "verified": false,
+      "website": "https://www.afterpay.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "portal\\.afterpay\\.com|static\\.afterpay\\.com", "confidence": 55 }]
+      }
+    },
+    {
+      "name": "AddThis",
+      "categories": ["Widgets"],
+      "verified": false,
+      "website": "http://www.addthis.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "addthis\\.com/js/", "confidence": 55 }],
+        "globals": [{ "path": "addthis", "confidence": 35 }]
+      }
+    },
+    {
+      "name": "AddToAny",
+      "categories": ["Widgets"],
+      "verified": false,
+      "website": "http://www.addtoany.com",
+      "signals": {
+        "scriptSrc": [{ "regex": "addtoany\\.com/menu/page\\.js", "confidence": 55 }],
+        "globals": [{ "path": "a2apage_init", "confidence": 35 }]
+      }
+    },
+    {
+      "name": "Aircall",
+      "categories": ["Live chat"],
+      "verified": false,
+      "website": "http://aircall.io",
+      "signals": {
+        "scriptSrc": [{ "regex": "cdn\\.aircall\\.io/", "confidence": 55 }]
+      }
+    }
+  ]
+}

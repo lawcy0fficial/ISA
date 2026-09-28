@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ISA — Scan History</title>
+  <link rel="stylesheet" href="history.css" />
+</head>
+<body>
+  <header class="head">
+    <h1>ISA — Scan History</h1>
+    <p class="sub">Every origin ISA has scanned this browsing session, pulled from local storage. Nothing here leaves your machine except when you export.</p>
+  </header>
+
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="filter by origin…" />
+    <span class="count" id="rowCount">0 origins</span>
+    <div class="spacer"></div>
+    <button id="btnExportSummaryCsv" class="secondary">export summary CSV</button>
+    <button id="btnExportAllJson" class="secondary">export everything (JSON)</button>
+    <button id="btnClear" class="danger">clear history</button>
+  </div>
+
+  <table id="table">
+    <thead>
+      <tr>
+        <th data-sort="origin">Origin</th>
+        <th data-sort="scannedAt">Last scanned</th>
+        <th data-sort="techCount">Technologies</th>
+        <th data-sort="grade">Header grade</th>
+        <th data-sort="vulnCount">Flagged CVEs</th>
+        <th data-sort="exposureCount">Exposure findings</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="empty hidden" id="emptyState">
+    No scans recorded yet — browse to a few sites with ISA active, then come back here.
+  </div>
+
+  <script src="history.js"></script>
+</body>
+</html>
