@@ -1,0 +1,11 @@
+<svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs><filter id="fg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect x="2" y="2" width="316" height="176" rx="16" fill="#0b1220" stroke="#39ff8f" stroke-width="1.6">
+    <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/>
+  </rect>
+  <g transform="translate(28,28)" filter="url(#fg)"><circle r="20" fill="none" stroke="#39ff8f" stroke-width="3"/><circle r="12" fill="none" stroke="#39ff8f" stroke-width="3"/><circle r="4" fill="#39ff8f"/><line x1="-28" y1="0" x2="-24" y2="0" stroke="#39ff8f" stroke-width="3"/><line x1="24" y1="0" x2="28" y2="0" stroke="#39ff8f" stroke-width="3"/><line x1="0" y1="-28" x2="0" y2="-24" stroke="#39ff8f" stroke-width="3"/><line x1="0" y1="24" x2="0" y2="28" stroke="#39ff8f" stroke-width="3"/></g>
+  <text x="28" y="98" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="17" fill="#39ff8f">RAW EVIDENCE</text>
+  <foreignObject x="28" y="108" width="264" height="60">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI', Arial, sans-serif;font-size:12.5px;color:#c9f7e2;opacity:0.9;line-height:1.4">Every finding carries the exact matched header, cookie, meta tag or DOM string behind it &#8212; nothing is inferred.</div>
+  </foreignObject>
+</svg>
