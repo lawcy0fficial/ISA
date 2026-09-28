@@ -1,7 +1,0 @@
-<svg width="153" height="28" viewBox="0 0 153 28" xmlns="http://www.w3.org/2000/svg">
-  <rect width="97" height="28" rx="6" fill="#0b1220"/>
-  <rect x="97" width="56" height="28" rx="6" fill="#00e5ff"></rect>
-  <rect x="91" width="6" height="28" fill="#00e5ff"/>
-  <text x="48.5" y="18.5" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-size="12.5" fill="#c9f7e2">license</text>
-  <text x="125.0" y="18.5" text-anchor="middle" font-family="'Courier New', ui-monospace, monospace" font-weight="700" font-size="12.5" fill="#060a10">MIT</text>
-</svg>
